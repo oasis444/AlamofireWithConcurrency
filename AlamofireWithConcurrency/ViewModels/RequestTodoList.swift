@@ -9,17 +9,16 @@ import Foundation
 import Alamofire
 
 final class RequestTodoList {
-    private let todoUrl = URL(string: "https://jsonplaceholder.typicode.com/todos")!
-    private var todoList: [Todo] = []
     
-    func getTodoList() {
-        Task {
-            do {
-                let data = try await RequestTodoList()
-                todoList = data
-            } catch {
-                print("error: \(error.localizedDescription)")
-            }
+    private let todoUrl = URL(string: "https://jsonplaceholder.typicode.com/todos")!
+    
+    func getTodoList() async -> [Todo] {
+        do {
+            let requestData = try await RequestTodoList()
+            return requestData
+        } catch {
+            print("error: \(error.localizedDescription)")
+            return []
         }
     }
 }
